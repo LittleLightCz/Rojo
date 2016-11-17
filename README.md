@@ -74,12 +74,12 @@ Note that all these methods have their "matcher" overloads in case you would lik
 
 ## Annotations overview
 Class annotations:
-- @Regex - here's where you specify you'r regexp pattern as String
+- @Regex - here's where you specify your regexp pattern as String
 - @Flags - if you want to use flags such as Pattern.DOTALL etc.
 
 Field annotations:
 - @Group - group number that corresponds to the field
-- @DateFormat - this annotations is mandatory only for the Date type fields, where you have to specify the date format
+- @DateFormat - this annotation is mandatory only for the Date type fields, where you have to specify the date format
 
 ## Final words
 If you have any ideas how to enhance this library, you're welcome to do so, because it would be awesome, if we could make this an ultimate Java library for a regular expression parsing.
