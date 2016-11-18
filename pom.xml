@@ -6,7 +6,33 @@
 
     <groupId>com.svetylkovo</groupId>
     <artifactId>rojo</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
+
+    <name>Rojo</name>
+    <description>Rojo is a Java library for mapping the regular expression into a POJO objects and more.</description>
+    <url>https://github.com/LittleLightCz/Rojo</url>
+
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE, Version 3.0</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.html</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Antonin Brettsnajdr</name>
+            <email>antonin.brettsnajdr@gmail.com</email>
+            <organization>none</organization>
+            <organizationUrl>https://github.com/LittleLightCz</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/LittleLightCz/Rojo.git</connection>
+        <developerConnection>scm:git:ssh://github.com:LittleLightCz/Rojo.git</developerConnection>
+        <url>http://github.com/LittleLightCz/Rojo</url>
+    </scm>
 
     <build>
         <plugins>
@@ -17,6 +43,32 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

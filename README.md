@@ -10,6 +10,14 @@ Rojo is a Java library for mapping the regular expression into a POJO objects an
 - BigInteger, BigDecimal
 - Date
 
+## Maven dependency
+```xml
+<dependency>
+    <groupId>com.svetylkovo</groupId>
+    <artifactId>rojo</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 ## How to use Rojo
 First let's define our SimpleBean to show some simple regexp matching. It's gonna have field "name", which will be String, and "count", which will be int. It will look like this:
 
