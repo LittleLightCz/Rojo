@@ -80,6 +80,27 @@ String replaced = Rojo.replace("[a-z]", "a:1,b:2,c:3", String::toUpperCase);
 ```
 Note that all these methods have their "matcher" overloads in case you would like to use them directly.
 
+## Performance tuning
+Since **Rojo.of()** and all other **plain-matching** methods always create a new Pattern instance inside, it might be expensive if you want to do the matching with the same regexp on a large amount of different input Strings. For this purpose you may want to store the matcher and re-use it. For POJO matching, you can just store the **RojoBeanMatcher** instance returned by **Rojo.of()**, so this code:
+```java
+SimpleBean bean = Rojo.of(SimpleBean.class)
+                    .match(input).get();
+```
+will be replaced by:
+```java
+RojoBeanMatcher<SimpleBean> matcher = Rojo.of(SimpleBean.class);
+SimpleBean bean = matcher.match(input).get();
+```
+
+For plain-matching there is a **Rojo.matcher()** method which obtains the **RojoMatcher** instance, so this code:
+```java
+List<String> list = Rojo.asList("[a-z]", input);
+```
+will turn into this one:
+```java
+RojoMatcher matcher = Rojo.matcher("[a-z]");
+List<String> list = matcher.asList(input);
+```
 ## Annotations overview
 Class annotations:
 - @Regex - here's where you specify your regexp pattern as String
