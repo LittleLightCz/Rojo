@@ -1,5 +1,7 @@
 package com.svetylkovo.rojo.matcher;
 
+import com.svetylkovo.rojo.lambda.*;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -79,5 +81,41 @@ public class RojoMatcher {
 
     public String replace(String str, Function<String, String> func) {
         return replaceMatcher(str, m -> func.apply(m.group()));
+    }
+
+    public void forEach(String str, GroupArgs2 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2)));
+    }
+
+    public void forEach(String str, GroupArgs3 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3)));
+    }
+
+    public void forEach(String str, GroupArgs4 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4)));
+    }
+
+    public void forEach(String str, GroupArgs5 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5)));
+    }
+
+    public void forEach(String str, GroupArgs6 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)));
+    }
+
+    public void forEach(String str, GroupArgs7 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)));
+    }
+
+    public void forEach(String str, GroupArgs8 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8)));
+    }
+
+    public void forEach(String str, GroupArgs9 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9)));
+    }
+
+    public void forEach(String str, GroupArgs10 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9), m.group(10)));
     }
 }

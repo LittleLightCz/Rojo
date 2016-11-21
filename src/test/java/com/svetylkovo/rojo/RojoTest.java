@@ -68,4 +68,27 @@ public class RojoTest {
         assertEquals("A:1,B:2,C:3", replaced);
     }
 
+    @Test
+    public void forEachTest2() throws Exception {
+        List<String> expected = Arrays.asList("a1", "b2", "c3");
+        List<String> result = new ArrayList<>();
+        Rojo.forEach("([a-z]):(\\d)", input, (letter, num) -> result.add(letter+num));
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void forEachTest3() throws Exception {
+        List<String> expected = Arrays.asList(":a1", ":b2", ":c3");
+        List<String> result = new ArrayList<>();
+        Rojo.forEach("([a-z])(:)(\\d)", input, (letter, colon, num) -> result.add(colon+letter+num));
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void badForEachTest() throws Exception {
+        expectedEx.expect(IndexOutOfBoundsException.class);
+        expectedEx.expectMessage("No group 4");
+        Rojo.forEach("([a-z])(:)(\\d)", input, (letter, colon, num, unused) -> {});
+    }
+
 }
