@@ -51,8 +51,12 @@ public class RojoMatcher {
         return asStream(str).collect(toList());
     }
 
-    public List<Matcher> asMatcherList(String str) {
-        return asMatcherStream(str).collect(toList());
+    public Iterable<String> asIterable(String str) {
+        return asStream(str)::iterator;
+    }
+
+    public Iterable<Matcher> asMatcherIterable(String str) {
+        return asMatcherStream(str)::iterator;
     }
 
     public Map<String, String> asMap(String str) {

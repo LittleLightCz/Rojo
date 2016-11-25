@@ -46,6 +46,17 @@ public class RojoTest {
     }
 
     @Test
+    public void asIterableTest() throws Exception {
+        List<String> list = new ArrayList<>();
+
+        for ( String match : Rojo.asIterable("[a-z]", input)) {
+            list.add(match);
+        }
+
+        assertEquals(Arrays.asList("a", "b", "c"), list);
+    }
+
+    @Test
     public void asMapTest() throws Exception {
         HashMap<String, String> expected = new HashMap<>();
         expected.put("a", "1");

@@ -147,26 +147,49 @@ public class Rojo {
     }
 
     /**
-     * Gets List of {@link Matcher}
+     * Gets Iterable of {@link Matcher}
      *
      * @param regex Regexp pattern
      * @param str Input string
-     * @return List of {@link Matcher}
+     * @return Iterable of {@link Matcher}
      */
-    public static List<Matcher> asMatcherList(String regex, String str) {
-        return matcher(regex).asMatcherList(str);
+    public static Iterable<Matcher> asMatcherIterable(String regex, String str) {
+        return asMatcherIterable(regex, str, DEFAULT_FLAGS);
     }
 
     /**
-     * Gets List of {@link Matcher}
+     * Gets Iterable of {@link Matcher}
      *
      * @param regex Regexp pattern
      * @param str Input string
      * @param flags Regexp flags from the class {@link Pattern}
-     * @return List of {@link Matcher}
+     * @return Iterable of {@link Matcher}
      */
-    public static List<Matcher> asMatcherList(String regex, String str, int flags) {
-        return matcher(regex, flags).asMatcherList(str);
+    public static Iterable<Matcher> asMatcherIterable(String regex, String str, int flags) {
+        return matcher(regex, flags).asMatcherIterable(str);
+    }
+
+    /**
+     * Gets Iterable of String matches
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @return Iterable of String matches
+     */
+    public static Iterable<String> asIterable(String regex, String str) {
+        return asIterable(regex, str, DEFAULT_FLAGS);
+    }
+
+    /**
+     * Gets Iterable of String matches
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @return Iterable of String matches
+     */
+    public static Iterable<String> asIterable(String regex, String str, int flags) {
+        return matcher(regex, flags).asIterable(str);
     }
 
     /**
