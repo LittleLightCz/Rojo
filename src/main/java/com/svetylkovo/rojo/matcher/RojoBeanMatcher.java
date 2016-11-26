@@ -45,7 +45,7 @@ public class RojoBeanMatcher<T> {
     }
 
     /**
-     * Gets an iterator of matched beans
+     * Gets an Iterator of matched beans
      *
      * @param str Input string
      * @return Iterator of matched beans
@@ -53,6 +53,16 @@ public class RojoBeanMatcher<T> {
     public Iterator<T> matchIterator(String str) {
         MatchIterator matchIter = new MatchIterator(processor.getMatcher(str));
         return new BeanIterator<>(matchIter, processor);
+    }
+
+    /**
+     * Gets an Iterable of matched beans
+     *
+     * @param str Input string
+     * @return Iterable of matched beans
+     */
+    public Iterable<T> matchIterable(String str) {
+        return () -> matchIterator(str);
     }
 
     /**

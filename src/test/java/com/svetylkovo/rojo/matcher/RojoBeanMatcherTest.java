@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -82,4 +83,19 @@ public class RojoBeanMatcherTest {
         assertEquals(name, bean.getName());
         assertEquals(count, bean.getCount());
     }
+
+    @Test
+    public void matchIterableTest() throws Exception {
+        List<SimpleBean> result = new ArrayList<>();
+
+        for ( SimpleBean bean : rojoSimple.matchIterable(simpleTestString)) {
+            result.add(bean);
+        }
+
+        assertEquals(3, result.size());
+        assertPair("apple", 12, result.get(0));
+        assertPair("pear", 7, result.get(1));
+        assertPair("banana", 2, result.get(2));
+    }
+
 }
