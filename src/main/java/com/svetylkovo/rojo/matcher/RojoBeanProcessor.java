@@ -9,10 +9,12 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -82,6 +84,34 @@ public class RojoBeanProcessor<T> {
                 } else {
                     return null;
                 }
+            };
+        }
+
+        //Use List<> matching
+        if (type.isAssignableFrom(List.class)) {
+            ParameterizedType listType = (ParameterizedType) field.getGenericType();
+            Class<?> listTypeClass = (Class<?>) listType.getActualTypeArguments()[0];
+
+            Function<String,?> mapper = getConversionFunc(listTypeClass, field);
+
+            String regexp = null;
+            if (field.isAnnotationPresent(Regex.class)) {
+                regexp = field.getAnnotation(Regex.class).value();
+            } else if (listTypeClass.isAnnotationPresent(Regex.class)) {
+                regexp = listTypeClass.getAnnotation(Regex.class).value();
+            } else {
+                throw new RuntimeException("Could't get the regexp pattern for the List<> field "+field.getName()+" in the "+rojoBean.getName()+" class. Use either @Regex to annotate the List<> field itself, or use the List whose generic type is of a class, which is annotated by the @Regex and @Group accordingly.");
+            }
+
+            final String finalRegexp = regexp;
+
+            return groupStr -> {
+                ArrayList<Object> list = new ArrayList<>();
+                RojoMatcher matcher = new RojoMatcher(finalRegexp);
+                for ( String match : matcher.asIterable(groupStr)) {
+                    list.add(mapper.apply(match));
+                }
+                return list;
             };
         }
 

@@ -5,6 +5,7 @@
 - added asIterable() and asMatcherIterable()
 - added matchIterable() in RojoBeanMatcher
 - added @Mapper annotation for group mapping to the custom field type
-- added nested matching
+- added nested class matching
+- added List field matching (both plain and nested class), flags are not supported yet
 - removed asMatcherList()
 - removed parallel support (which couldn't work anyway :-) )
