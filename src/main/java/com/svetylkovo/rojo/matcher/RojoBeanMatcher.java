@@ -69,22 +69,11 @@ public class RojoBeanMatcher<T> {
      * Gets Stream of matched beans
      *
      * @param str Input string
-     * @param parallel Use true if you want to use a parallel {@link java.util.Spliterator} underneath.
-     * @return Stream of matched beans
-     */
-    public Stream<T> matchStream(String str, boolean parallel) {
-        Iterable<T> iterable = () -> matchIterator(str);
-        return StreamSupport.stream(iterable.spliterator(), parallel);
-    }
-
-    /**
-     * Gets Stream of matched beans
-     *
-     * @param str Input string
      * @return Stream of matched beans
      */
     public Stream<T> matchStream(String str) {
-        return matchStream(str, false);
+        Iterable<T> iterable = () -> matchIterator(str);
+        return StreamSupport.stream(iterable.spliterator(), false);
     }
 
 }

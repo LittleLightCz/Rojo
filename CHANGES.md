@@ -7,3 +7,4 @@
 - added @Mapper annotation for group mapping to the custom field type
 - added nested matching
 - removed asMatcherList()
+- removed parallel support (which couldn't work anyway :-) )

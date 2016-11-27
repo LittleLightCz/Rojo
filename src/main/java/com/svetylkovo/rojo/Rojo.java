@@ -67,24 +67,11 @@ public class Rojo {
      *
      * @param regex Regexp pattern
      * @param str Input string
-     * @param flags Regexp flags from the class {@link Pattern}
+     * @param flags Regexp flags from the class {@link Pattern}. Use DEFAULT_FLAGS for default.
      * @return Stream of {@link Matcher}
      */
     public static Stream<Matcher> asMatcherStream(String regex, String str, int flags) {
         return matcher(regex, flags).asMatcherStream(str);
-    }
-
-    /**
-     * Gets Stream of {@link Matcher}
-     *
-     * @param regex Regexp pattern
-     * @param str Input string
-     * @param flags Regexp flags from the class {@link Pattern}. Use DEFAULT_FLAGS for default.
-     * @param parallel Use true if you want to use a parallel {@link java.util.Spliterator} underneath.
-     * @return Stream of {@link Matcher}
-     */
-    public static Stream<Matcher> asMatcherStream(String regex, String str, int flags, boolean parallel) {
-        return matcher(regex, flags).asMatcherStream(str, parallel);
     }
 
     /**
@@ -108,19 +95,6 @@ public class Rojo {
      */
     public static Stream<String> asStream(String regex, String str, int flags) {
         return matcher(regex, flags).asStream(str);
-    }
-
-    /**
-     * Gets Stream of String matches
-     *
-     * @param regex Regexp pattern
-     * @param str Input string
-     * @param flags Regexp flags from the class {@link Pattern}. Use DEFAULT_FLAGS for default.
-     * @param parallel Use true if you want to use a parallel {@link java.util.Spliterator} underneath.
-     * @return Stream of String matches
-     */
-    public static Stream<String> asStream(String regex, String str, int flags, boolean parallel) {
-        return matcher(regex, flags).asStream(str, parallel);
     }
 
     /**

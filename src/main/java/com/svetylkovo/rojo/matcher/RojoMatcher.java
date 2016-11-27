@@ -31,20 +31,12 @@ public class RojoMatcher {
     }
 
     public Stream<Matcher> asMatcherStream(String str) {
-        return asMatcherStream(str, false);
-    }
-
-    public Stream<Matcher> asMatcherStream(String str, boolean parallel) {
         Iterable<Matcher> it = () -> new MatchIterator(pattern.matcher(str));
-        return StreamSupport.stream(it.spliterator(), parallel);
+        return StreamSupport.stream(it.spliterator(), false);
     }
 
     public Stream<String> asStream(String str) {
-        return asStream(str, false);
-    }
-
-    public Stream<String> asStream(String str, boolean parallel) {
-        return asMatcherStream(str, parallel).map(Matcher::group);
+        return asMatcherStream(str).map(Matcher::group);
     }
 
     public List<String> asList(String str) {
