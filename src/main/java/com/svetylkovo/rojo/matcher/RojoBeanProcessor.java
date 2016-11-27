@@ -1,9 +1,6 @@
 package com.svetylkovo.rojo.matcher;
 
-import com.svetylkovo.rojo.annotations.DateFormat;
-import com.svetylkovo.rojo.annotations.Flags;
-import com.svetylkovo.rojo.annotations.Group;
-import com.svetylkovo.rojo.annotations.Regex;
+import com.svetylkovo.rojo.annotations.*;
 import com.svetylkovo.rojo.exceptions.MissingDateFormatAnnotationException;
 import com.svetylkovo.rojo.exceptions.MissingRegexAnnotationException;
 import com.svetylkovo.rojo.exceptions.UnsupportedFieldTypeException;
@@ -61,6 +58,16 @@ public class RojoBeanProcessor<T> {
     }
 
     private Function<String,?> getConversionFunc(Class<?> type, Field field) {
+
+        if (field.isAnnotationPresent(Mapper.class)) {
+            Class<Function<String, ?>> mapperClass = field.getAnnotation(Mapper.class).value();
+            try {
+                return mapperClass.newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to create an instance of " + mapperClass.getName() + " specified in the @Mapper annotation of the field " + field.getName() + " in the " + rojoBean.getName() + " class");
+            }
+        }
+
         if (type.isAssignableFrom(Integer.class) || type.isAssignableFrom(int.class)) {
             return Integer::valueOf;
         } else if (type.isAssignableFrom(Long.class) || type.isAssignableFrom(long.class)) {
@@ -95,7 +102,7 @@ public class RojoBeanProcessor<T> {
         } else if (type.isAssignableFrom(String.class)) {
             return s -> s;
         } else {
-            throw new UnsupportedFieldTypeException("The " + type.getName() + " type of the field " + field.getName() + " in class " + rojoBean.getName() + " is not supported by this library (yet).");
+            throw new UnsupportedFieldTypeException("The " + type.getName() + " type of the field " + field.getName() + " in class " + rojoBean.getName() + " is not supported by this library (yet). You may want to consider using @Mapper annotation and define your own mapping function.");
         }
     }
 

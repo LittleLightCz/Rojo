@@ -9,7 +9,6 @@ import org.junit.rules.ExpectedException;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class RojoTest {
 
