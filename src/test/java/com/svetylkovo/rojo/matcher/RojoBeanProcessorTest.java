@@ -9,6 +9,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class RojoBeanProcessorTest {
 
@@ -80,6 +81,42 @@ public class RojoBeanProcessorTest {
         MapperBean bean = beanIterator.next();
 
         assertArrayEquals(new int[]{1,2,3}, bean.getNumbers());
+    }
+
+    @Test
+    public void nestedTest() {
+        RojoBeanProcessor<NestedMain> processor = new RojoBeanProcessor<>(NestedMain.class);
+        processor.processAnnotations();
+
+        MatchIterator it = new MatchIterator(processor.getMatcher("a:123"));
+
+        BeanIterator<NestedMain> beanIterator = new BeanIterator<>(it, processor);
+        beanIterator.hasNext();
+
+        NestedMain bean = beanIterator.next();
+        NestedInner inner = bean.getInner();
+
+        assertEquals("a", bean.getLetter());
+        assertEquals(1, inner.getFirst());
+        assertEquals(2, inner.getSecond());
+        assertEquals(3, inner.getThird());
+    }
+
+    @Test
+    public void nestedWrongMatchTest() {
+        RojoBeanProcessor<NestedMain> processor = new RojoBeanProcessor<>(NestedMain.class);
+        processor.processAnnotations();
+
+        MatchIterator it = new MatchIterator(processor.getMatcher("a:xxx"));
+
+        BeanIterator<NestedMain> beanIterator = new BeanIterator<>(it, processor);
+        beanIterator.hasNext();
+
+        NestedMain bean = beanIterator.next();
+        NestedInner inner = bean.getInner();
+
+        assertEquals("a", bean.getLetter());
+        assertNull(inner);
     }
 
 }

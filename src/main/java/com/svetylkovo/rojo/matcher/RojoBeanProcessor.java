@@ -59,13 +59,30 @@ public class RojoBeanProcessor<T> {
 
     private Function<String,?> getConversionFunc(Class<?> type, Field field) {
 
+        //Use custom mapper
         if (field.isAnnotationPresent(Mapper.class)) {
-            Class<Function<String, ?>> mapperClass = field.getAnnotation(Mapper.class).value();
+            Class<? extends Function<String, ?>> mapperClass = field.getAnnotation(Mapper.class).value();
             try {
                 return mapperClass.newInstance();
             } catch (Exception e) {
                 throw new RuntimeException("Failed to create an instance of " + mapperClass.getName() + " specified in the @Mapper annotation of the field " + field.getName() + " in the " + rojoBean.getName() + " class");
             }
+        }
+
+        //Use nested matching
+        if (type.isAnnotationPresent(Regex.class)) {
+            RojoBeanProcessor<?> nestedProcessor = new RojoBeanProcessor<>(type);
+            nestedProcessor.processAnnotations();
+
+            return groupStr -> {
+                MatchIterator matchIterator = new MatchIterator(nestedProcessor.getMatcher(groupStr));
+                BeanIterator<?> beanIterator = new BeanIterator<>(matchIterator, nestedProcessor);
+                if (beanIterator.hasNext()) {
+                    return beanIterator.next();
+                } else {
+                    return null;
+                }
+            };
         }
 
         if (type.isAssignableFrom(Integer.class) || type.isAssignableFrom(int.class)) {
