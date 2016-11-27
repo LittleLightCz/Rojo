@@ -15,7 +15,7 @@ Rojo is a Java library for mapping the regular expression into a POJO objects an
 <dependency>
     <groupId>com.svetylkovo</groupId>
     <artifactId>rojo</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 ## How to use Rojo
