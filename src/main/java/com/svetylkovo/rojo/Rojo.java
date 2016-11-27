@@ -1,5 +1,6 @@
 package com.svetylkovo.rojo;
 
+import com.svetylkovo.rojo.lambda.*;
 import com.svetylkovo.rojo.matcher.RojoBeanMatcher;
 import com.svetylkovo.rojo.matcher.RojoMatcher;
 
@@ -10,6 +11,8 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
+import static com.svetylkovo.rojo.matcher.RojoConstants.DEFAULT_FLAGS;
 
 /**
  * Main static Rojo class which you should use to perform your regexp matching.
@@ -64,24 +67,11 @@ public class Rojo {
      *
      * @param regex Regexp pattern
      * @param str Input string
-     * @param flags Regexp flags from the class {@link Pattern}
+     * @param flags Regexp flags from the class {@link Pattern}. Use DEFAULT_FLAGS for default.
      * @return Stream of {@link Matcher}
      */
     public static Stream<Matcher> asMatcherStream(String regex, String str, int flags) {
         return matcher(regex, flags).asMatcherStream(str);
-    }
-
-    /**
-     * Gets Stream of {@link Matcher}
-     *
-     * @param regex Regexp pattern
-     * @param str Input string
-     * @param flags Regexp flags from the class {@link Pattern}. Use DEFAULT_FLAGS for default.
-     * @param parallel Use true if you want to use a parallel {@link java.util.Spliterator} underneath.
-     * @return Stream of {@link Matcher}
-     */
-    public static Stream<Matcher> asMatcherStream(String regex, String str, int flags, boolean parallel) {
-        return matcher(regex, flags).asMatcherStream(str, parallel);
     }
 
     /**
@@ -108,19 +98,6 @@ public class Rojo {
     }
 
     /**
-     * Gets Stream of String matches
-     *
-     * @param regex Regexp pattern
-     * @param str Input string
-     * @param flags Regexp flags from the class {@link Pattern}. Use DEFAULT_FLAGS for default.
-     * @param parallel Use true if you want to use a parallel {@link java.util.Spliterator} underneath.
-     * @return Stream of String matches
-     */
-    public static Stream<String> asStream(String regex, String str, int flags, boolean parallel) {
-        return matcher(regex, flags).asStream(str, parallel);
-    }
-
-    /**
      * Gets List of String matches
      *
      * @param regex Regexp pattern
@@ -144,26 +121,49 @@ public class Rojo {
     }
 
     /**
-     * Gets List of {@link Matcher}
+     * Gets Iterable of {@link Matcher}
      *
      * @param regex Regexp pattern
      * @param str Input string
-     * @return List of {@link Matcher}
+     * @return Iterable of {@link Matcher}
      */
-    public static List<Matcher> asMatcherList(String regex, String str) {
-        return matcher(regex).asMatcherList(str);
+    public static Iterable<Matcher> asMatcherIterable(String regex, String str) {
+        return asMatcherIterable(regex, str, DEFAULT_FLAGS);
     }
 
     /**
-     * Gets List of {@link Matcher}
+     * Gets Iterable of {@link Matcher}
      *
      * @param regex Regexp pattern
      * @param str Input string
      * @param flags Regexp flags from the class {@link Pattern}
-     * @return List of {@link Matcher}
+     * @return Iterable of {@link Matcher}
      */
-    public static List<Matcher> asMatcherList(String regex, String str, int flags) {
-        return matcher(regex, flags).asMatcherList(str);
+    public static Iterable<Matcher> asMatcherIterable(String regex, String str, int flags) {
+        return matcher(regex, flags).asMatcherIterable(str);
+    }
+
+    /**
+     * Gets Iterable of String matches
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @return Iterable of String matches
+     */
+    public static Iterable<String> asIterable(String regex, String str) {
+        return asIterable(regex, str, DEFAULT_FLAGS);
+    }
+
+    /**
+     * Gets Iterable of String matches
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @return Iterable of String matches
+     */
+    public static Iterable<String> asIterable(String regex, String str, int flags) {
+        return matcher(regex, flags).asIterable(str);
     }
 
     /**
@@ -283,5 +283,212 @@ public class Rojo {
      */
     public static String replace(String regex, String str, int flags, Function<String,String> func) {
         return matcher(regex, flags).replace(str, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 2 arguments
+     */
+    public static void forEach(String regex, String str, GroupArgs2 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 3 arguments
+     */
+    public static void forEach(String regex, String str, GroupArgs3 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 4 arguments
+     */
+    public static void forEach(String regex, String str, GroupArgs4 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 5 arguments
+     */
+    public static void forEach(String regex, String str, GroupArgs5 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 6 arguments
+     */
+    public static void forEach(String regex, String str, GroupArgs6 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 7 arguments
+     */
+    public static void forEach(String regex, String str, GroupArgs7 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 8 arguments
+     */
+    public static void forEach(String regex, String str, GroupArgs8 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 9 arguments
+     */
+    public static void forEach(String regex, String str, GroupArgs9 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 10 arguments
+     */
+    public static void forEach(String regex, String str, GroupArgs10 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 2 arguments
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs2 func) {
+        matcher(regex, flags).forEach(str, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 3 arguments
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs3 func) {
+        matcher(regex, flags).forEach(str, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 4 arguments
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs4 func) {
+        matcher(regex, flags).forEach(str, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 5 arguments
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs5 func) {
+        matcher(regex, flags).forEach(str, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 6 arguments
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs6 func) {
+        matcher(regex, flags).forEach(str, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 7 arguments
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs7 func) {
+        matcher(regex, flags).forEach(str, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 8 arguments
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs8 func) {
+        matcher(regex, flags).forEach(str, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 9 arguments
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs9 func) {
+        matcher(regex, flags).forEach(str, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 10 arguments
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs10 func) {
+        matcher(regex, flags).forEach(str, func);
     }
 }

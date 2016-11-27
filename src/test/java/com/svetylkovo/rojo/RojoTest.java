@@ -9,7 +9,6 @@ import org.junit.rules.ExpectedException;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class RojoTest {
 
@@ -46,6 +45,17 @@ public class RojoTest {
     }
 
     @Test
+    public void asIterableTest() throws Exception {
+        List<String> list = new ArrayList<>();
+
+        for ( String match : Rojo.asIterable("[a-z]", input)) {
+            list.add(match);
+        }
+
+        assertEquals(Arrays.asList("a", "b", "c"), list);
+    }
+
+    @Test
     public void asMapTest() throws Exception {
         HashMap<String, String> expected = new HashMap<>();
         expected.put("a", "1");
@@ -66,6 +76,29 @@ public class RojoTest {
     public void replaceTest() throws Exception {
         String replaced = Rojo.replace("[a-z]", input, String::toUpperCase);
         assertEquals("A:1,B:2,C:3", replaced);
+    }
+
+    @Test
+    public void forEachTest2() throws Exception {
+        List<String> expected = Arrays.asList("a1", "b2", "c3");
+        List<String> result = new ArrayList<>();
+        Rojo.forEach("([a-z]):(\\d)", input, (letter, num) -> result.add(letter+num));
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void forEachTest3() throws Exception {
+        List<String> expected = Arrays.asList(":a1", ":b2", ":c3");
+        List<String> result = new ArrayList<>();
+        Rojo.forEach("([a-z])(:)(\\d)", input, (letter, colon, num) -> result.add(colon+letter+num));
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void badForEachTest() throws Exception {
+        expectedEx.expect(IndexOutOfBoundsException.class);
+        expectedEx.expectMessage("No group 4");
+        Rojo.forEach("([a-z])(:)(\\d)", input, (letter, colon, num, unused) -> {});
     }
 
 }

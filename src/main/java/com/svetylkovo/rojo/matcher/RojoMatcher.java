@@ -1,5 +1,7 @@
 package com.svetylkovo.rojo.matcher;
 
+import com.svetylkovo.rojo.lambda.*;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,28 +31,24 @@ public class RojoMatcher {
     }
 
     public Stream<Matcher> asMatcherStream(String str) {
-        return asMatcherStream(str, false);
-    }
-
-    public Stream<Matcher> asMatcherStream(String str, boolean parallel) {
         Iterable<Matcher> it = () -> new MatchIterator(pattern.matcher(str));
-        return StreamSupport.stream(it.spliterator(), parallel);
+        return StreamSupport.stream(it.spliterator(), false);
     }
 
     public Stream<String> asStream(String str) {
-        return asStream(str, false);
-    }
-
-    public Stream<String> asStream(String str, boolean parallel) {
-        return asMatcherStream(str, parallel).map(Matcher::group);
+        return asMatcherStream(str).map(Matcher::group);
     }
 
     public List<String> asList(String str) {
         return asStream(str).collect(toList());
     }
 
-    public List<Matcher> asMatcherList(String str) {
-        return asMatcherStream(str).collect(toList());
+    public Iterable<String> asIterable(String str) {
+        return asStream(str)::iterator;
+    }
+
+    public Iterable<Matcher> asMatcherIterable(String str) {
+        return asMatcherStream(str)::iterator;
     }
 
     public Map<String, String> asMap(String str) {
@@ -79,5 +77,41 @@ public class RojoMatcher {
 
     public String replace(String str, Function<String, String> func) {
         return replaceMatcher(str, m -> func.apply(m.group()));
+    }
+
+    public void forEach(String str, GroupArgs2 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2)));
+    }
+
+    public void forEach(String str, GroupArgs3 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3)));
+    }
+
+    public void forEach(String str, GroupArgs4 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4)));
+    }
+
+    public void forEach(String str, GroupArgs5 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5)));
+    }
+
+    public void forEach(String str, GroupArgs6 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)));
+    }
+
+    public void forEach(String str, GroupArgs7 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)));
+    }
+
+    public void forEach(String str, GroupArgs8 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8)));
+    }
+
+    public void forEach(String str, GroupArgs9 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9)));
+    }
+
+    public void forEach(String str, GroupArgs10 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9), m.group(10)));
     }
 }

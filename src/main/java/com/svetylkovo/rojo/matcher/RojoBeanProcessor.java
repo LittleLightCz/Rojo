@@ -1,9 +1,6 @@
 package com.svetylkovo.rojo.matcher;
 
-import com.svetylkovo.rojo.annotations.DateFormat;
-import com.svetylkovo.rojo.annotations.Flags;
-import com.svetylkovo.rojo.annotations.Group;
-import com.svetylkovo.rojo.annotations.Regex;
+import com.svetylkovo.rojo.annotations.*;
 import com.svetylkovo.rojo.exceptions.MissingDateFormatAnnotationException;
 import com.svetylkovo.rojo.exceptions.MissingRegexAnnotationException;
 import com.svetylkovo.rojo.exceptions.UnsupportedFieldTypeException;
@@ -12,10 +9,12 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -61,6 +60,61 @@ public class RojoBeanProcessor<T> {
     }
 
     private Function<String,?> getConversionFunc(Class<?> type, Field field) {
+
+        //Use custom mapper
+        if (field.isAnnotationPresent(Mapper.class)) {
+            Class<? extends Function<String, ?>> mapperClass = field.getAnnotation(Mapper.class).value();
+            try {
+                return mapperClass.newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to create an instance of " + mapperClass.getName() + " specified in the @Mapper annotation of the field " + field.getName() + " in the " + rojoBean.getName() + " class");
+            }
+        }
+
+        //Use nested matching
+        if (type.isAnnotationPresent(Regex.class)) {
+            RojoBeanProcessor<?> nestedProcessor = new RojoBeanProcessor<>(type);
+            nestedProcessor.processAnnotations();
+
+            return groupStr -> {
+                MatchIterator matchIterator = new MatchIterator(nestedProcessor.getMatcher(groupStr));
+                BeanIterator<?> beanIterator = new BeanIterator<>(matchIterator, nestedProcessor);
+                if (beanIterator.hasNext()) {
+                    return beanIterator.next();
+                } else {
+                    return null;
+                }
+            };
+        }
+
+        //Use List<> matching
+        if (type.isAssignableFrom(List.class)) {
+            ParameterizedType listType = (ParameterizedType) field.getGenericType();
+            Class<?> listTypeClass = (Class<?>) listType.getActualTypeArguments()[0];
+
+            Function<String,?> mapper = getConversionFunc(listTypeClass, field);
+
+            String regexp = null;
+            if (field.isAnnotationPresent(Regex.class)) {
+                regexp = field.getAnnotation(Regex.class).value();
+            } else if (listTypeClass.isAnnotationPresent(Regex.class)) {
+                regexp = listTypeClass.getAnnotation(Regex.class).value();
+            } else {
+                throw new RuntimeException("Could't get the regexp pattern for the List<> field "+field.getName()+" in the "+rojoBean.getName()+" class. Use either @Regex to annotate the List<> field itself, or use the List whose generic type is of a class, which is annotated by the @Regex and @Group accordingly.");
+            }
+
+            final String finalRegexp = regexp;
+
+            return groupStr -> {
+                ArrayList<Object> list = new ArrayList<>();
+                RojoMatcher matcher = new RojoMatcher(finalRegexp);
+                for ( String match : matcher.asIterable(groupStr)) {
+                    list.add(mapper.apply(match));
+                }
+                return list;
+            };
+        }
+
         if (type.isAssignableFrom(Integer.class) || type.isAssignableFrom(int.class)) {
             return Integer::valueOf;
         } else if (type.isAssignableFrom(Long.class) || type.isAssignableFrom(long.class)) {
@@ -95,7 +149,7 @@ public class RojoBeanProcessor<T> {
         } else if (type.isAssignableFrom(String.class)) {
             return s -> s;
         } else {
-            throw new UnsupportedFieldTypeException("The " + type.getName() + " type of the field " + field.getName() + " in class " + rojoBean.getName() + " is not supported by this library (yet).");
+            throw new UnsupportedFieldTypeException("The " + type.getName() + " type of the field " + field.getName() + " in class " + rojoBean.getName() + " is not supported by this library (yet). You may want to consider using @Mapper annotation and define your own mapping function.");
         }
     }
 
