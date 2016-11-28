@@ -125,6 +125,87 @@ Console output:
 Total fruits collected: 14
 ```
 
+### Nested matching
+Imagine a situation where you want to match groups to POJO's fields, where one of those fields is an another POJO class with its own regex, which will match the content of the previously parsed group. Let's define such scenario, where we will match person's name and store his/her height and weight into the Body class, which will have a method to compute a person's BMI index:
+
+```java
+@Regex("(\\w+): (.+)")
+public class Person {
+
+    @Group(1)
+    private String name;
+
+    @Group(2)
+    private Body body;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
+    public void setBody(Body body) {
+        this.body = body;
+    }
+}
+```
+
+```java
+@Regex("(\\d+)cm,(\\d+)kg")
+public class Body {
+
+    @Group(1)
+    private double height;
+    
+    @Group(2)
+    private double weight;
+
+    public double getBmi() {
+        return weight/Math.pow((height/100),2);
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+}
+```
+
+We will match this input String and print the results:
+```java
+String input = "Thomas: 180cm,75kg\n" +
+        "Jane: 163cm,45kg\n" +
+        "Mark: 175cm,60kg";
+
+Rojo.of(Person.class).matchStream(input).forEach( person -> {
+    System.out.println(person.getName()+"'s BMI index is: "+person.getBody().getBmi());
+});
+```
+
+Console output:
+```
+Thomas's BMI index is: 23.148148148148145
+Jane's BMI index is: 16.937031879257784
+Mark's BMI index is: 19.591836734693878
+```
+
 ### Plain matching
 You don't always need to match a POJO bean, but Rojo also enables you to do the "plain matching" in much more convenient way, than if you've used the Java's Pattern.compile() manually. Let's print just the first picker's name: 
 ```java
