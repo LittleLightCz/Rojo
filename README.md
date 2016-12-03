@@ -1,5 +1,5 @@
 # Rojo
-Rojo is a Java library for mapping the regular expression into a POJO objects and more! The regexp groups are automatically converted to the POJO's field types. The currently supported types are:
+Rojo is a Java library for mapping the regular expression into a POJO objects and more! The regex groups are automatically converted to the POJO's field types. The currently supported types are:
 
 - String
 - Integer / int
@@ -20,7 +20,7 @@ Rojo is a Java library for mapping the regular expression into a POJO objects an
 ```
 ## How to use Rojo
 ### POJO matching
-Let's have an input string which will be used to demonstrate the Rojo's features. We will do some regexp matching in a short (completely fictional) document which describes the results of a fruit picking session:
+Let's have an input string which will be used to demonstrate the Rojo's features. We will do some regex matching in a short (completely fictional) document which describes the results of a fruit picking session:
 ```java
 String input = "John picked 7 apples on 2/6/2016.\n" +
                "Peter picked only 2 pears on 13/6/2016.\n" +
@@ -206,6 +206,116 @@ Jane's BMI index is: 16.937031879257784
 Mark's BMI index is: 19.591836734693878
 ```
 
+### List matching
+Rojo can match multiple regex matches for a specific group as a List. If the List's generic type is not a class annotated by @Regex, you have to annotate the specific List field. Let's match people's favorite numbers:
+```java
+@Regex("(\\w+): (.+)")
+public class Person {
+
+    @Group(1)
+    private String name;
+
+    @Group(2)
+    @Regex("\\d+")
+    private List<Integer> favNumbers;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Integer> getFavNumbers() {
+        return favNumbers;
+    }
+
+    public void setFavNumbers(List<Integer> favNumbers) {
+        this.favNumbers = favNumbers;
+    }
+}
+```
+
+```java
+String input = "Thomas: 1,2,3\n" +
+        "Jane: 4,5,6\n" +
+        "Mark: 7,8,9";
+
+Rojo.of(Person.class).matchStream(input).forEach( person -> {
+    String numbers = person.getFavNumbers().stream()
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(" and "));
+
+    System.out.println(person.getName()+"'s favorite numbers are: "+numbers);
+});
+```
+
+Console output:
+```
+Thomas's favorite numbers are: 1 and 2 and 3
+Jane's favorite numbers are: 4 and 5 and 6
+Mark's favorite numbers are: 7 and 8 and 9
+```
+
+### Custom mapper
+If you want to map a group to a type which is not supported by default, you can specify your own mapper using the @Mapper annotation, which takes a class which implements java.util.function.Function mapping a String to your specified type:
+
+```java
+@Regex("(\\w+): (.+)")
+public class Person {
+
+    @Group(1)
+    private String name;
+
+    @Group(2)
+    @Mapper(MyBooleanMapper.class)
+    private boolean evenAge;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isEvenAge() {
+        return evenAge;
+    }
+
+    public void setEvenAge(boolean evenAge) {
+        this.evenAge = evenAge;
+    }
+}
+```
+
+```java
+public class MyBooleanMapper implements Function<String, Boolean> {
+    @Override
+    public Boolean apply(String str) {
+        return Integer.valueOf(str) % 2 == 0;
+    }
+}
+```
+
+```java
+String input = "Thomas: 20\n" +
+                "Jane: 21\n" +
+                "Mark: 22";
+
+Rojo.of(Person.class).matchStream(input).forEach( person -> {
+    System.out.println("Is "+person.getName()+"'s age even? => "+person.isEvenAge());
+});
+```
+
+Console output:
+```
+Is Thomas's age even? => true
+Is Jane's age even? => false
+Is Mark's age even? => true
+```
+
 ### Plain matching
 You don't always need to match a POJO bean, but Rojo also enables you to do the "plain matching" in much more convenient way, than if you've used the Java's Pattern.compile() manually. Let's print just the first picker's name: 
 ```java
@@ -260,7 +370,8 @@ Jane collected 5 BANANAS on 5/7/2016.
 ```
 ... for more advanced replacement you can use **replaceMatcher()**.
 
-Since 1.0.1 there is a new **forEach()** method which allows you to iterate over the regexp matches, where it extracts all groups (2 and more, up to 10) into the lambda function arguments:
+### forEach()
+This method allows you to iterate over the regex matches, where it extracts all groups (2 and more, up to 10) into the lambda function arguments:
 ```java
 Rojo.forEach("([A-Z]\\w+).+(\\d) (\\w+) on (\\d+/\\d+/\\d+)", input,
     (name, count, fruit, date) -> System.out.println(name + " (" + count + " " + fruit + " on " + date + ")")
@@ -274,7 +385,7 @@ Jane (5 bananas on 5/7/2016)
 ```
 
 ## Performance tuning
-Since **Rojo.of()** and all other **plain-matching** methods always create a new Pattern instance inside, it might be expensive if you want to do the matching with the same regexp on a large amount of different input Strings. For this purpose you may want to store the matcher and re-use it. For POJO matching, you can just store the **RojoBeanMatcher** instance returned by **Rojo.of()**, so this code:
+Since **Rojo.of()** and all other **plain-matching** methods always create a new Pattern instance inside, it might be expensive if you want to do the matching with the same regex on a large amount of different input Strings. For this purpose you may want to store the matcher and re-use it. For POJO matching, you can just store the **RojoBeanMatcher** instance returned by **Rojo.of()**, so this code:
 ```java
 SimpleBean bean = Rojo.of(SimpleBean.class)
                     .match(input).get();
@@ -296,13 +407,11 @@ List<String> list = matcher.asList(input);
 ```
 ## Annotations overview
 Class annotations:
-- @Regex - here's where you specify your regexp pattern as String
+- @Regex - here's where you specify your regex pattern as String
 - @Flags - if you want to use flags such as Pattern.DOTALL etc.
 
 Field annotations:
 - @Regex - only for List type of fields which don't use the "nested class matching" (=class annotated by @Regex itself) as a generic type
 - @Group - group number that corresponds to the field
 - @DateFormat - this annotation is mandatory only for the Date type fields, where you have to specify the date format
-
-## Final words
-If you have any ideas how to enhance this library, you're welcome to do so, because it would be awesome, if we could make this an ultimate Java library for a regular expression parsing.
+- @Mapper - custom mapping of the matched group to your specified type
