@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -99,6 +100,14 @@ public class RojoTest {
         expectedEx.expect(IndexOutOfBoundsException.class);
         expectedEx.expectMessage("No group 4");
         Rojo.forEach("([a-z])(:)(\\d)", input, (letter, colon, num, unused) -> {});
+    }
+
+    @Test
+    public void firstGroupTest() throws Exception {
+        List<String> result = Rojo.firstGroup("\\{(.+?)\\}", "{one},{two},{three}")
+                                .collect(Collectors.toList());
+
+        assertEquals(Arrays.asList("one","two","three"), result);
     }
 
 }

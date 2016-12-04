@@ -491,4 +491,28 @@ public class Rojo {
     public static void forEach(String regex, String str, int flags, GroupArgs10 func) {
         matcher(regex, flags).forEach(str, func);
     }
+
+    /**
+     * Match and extract the first group as a Stream<String>
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @return The first group as a Stream<String>
+     */
+    public static Stream<String> firstGroup(String regex, String str) {
+        return firstGroup(regex, str, DEFAULT_FLAGS);
+    }
+
+    /**
+     * Match and extract the first group as a Stream<String>
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @return The first group as a Stream<String>
+     */
+    public static Stream<String> firstGroup(String regex, String str, int flags) {
+        return matcher(regex, flags).firstGroup(str);
+    }
+
 }

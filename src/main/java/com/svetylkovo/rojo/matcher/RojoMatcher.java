@@ -114,4 +114,8 @@ public class RojoMatcher {
     public void forEach(String str, GroupArgs10 func) {
         asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9), m.group(10)));
     }
+
+    public Stream<String> firstGroup(String str) {
+        return asMatcherStream(str).map( m -> m.group(1) );
+    }
 }
