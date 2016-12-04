@@ -384,6 +384,21 @@ Peter (2 pears on 13/6/2016)
 Jane (5 bananas on 5/7/2016)        
 ```
 
+### firstGroup()
+Sometimes you just want to extract the first group only. The firstGroup() method returns a Stream of Strings, where each element is the extracted first group of the regex:
+```java
+String input = "{apple},{banana},{pear}";
+
+Rojo.firstGroup("\\{(.+?)\\}", input)
+        .forEach(System.out::println);
+```
+
+Console output:
+```
+apple
+banana
+pear
+```
 ## Performance tuning
 Since **Rojo.of()** and all other **plain-matching** methods always create a new Pattern instance inside, it might be expensive if you want to do the matching with the same regex on a large amount of different input Strings. For this purpose you may want to store the matcher and re-use it. For POJO matching, you can just store the **RojoBeanMatcher** instance returned by **Rojo.of()**, so this code:
 ```java
