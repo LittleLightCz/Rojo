@@ -319,6 +319,10 @@ Is Mark's age even? => true
 ### Plain matching
 You don't always need to match a POJO bean, but Rojo also enables you to do the "plain matching" in much more convenient way, than if you've used the Java's Pattern.compile() manually. Let's print just the first picker's name: 
 ```java
+String input = "John picked 7 apples on 2/6/2016.\n" +
+               "Peter picked only 2 pears on 13/6/2016.\n" +
+               "Jane collected 5 bananas on 5/7/2016.";
+               
 Optional<String> firstName = Rojo.find("[A-Z]\\w+", input);
 firstName.ifPresent( name ->
     System.out.println("The first picker is "+name)
