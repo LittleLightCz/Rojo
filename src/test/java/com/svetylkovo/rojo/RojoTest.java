@@ -110,4 +110,28 @@ public class RojoTest {
         assertEquals(Arrays.asList("one","two","three"), result);
     }
 
+    @Test
+    public void mapTest2() throws Exception {
+        List<String> expected = Arrays.asList("a1", "b2", "c3");
+        List<String> result = Rojo.map("([a-z]):(\\d)", input, (letter, num) -> letter+num)
+                .collect(Collectors.toList());
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void mapTest3() throws Exception {
+        List<String> expected = Arrays.asList(":a1", ":b2", ":c3");
+        List<String> result = Rojo.map("([a-z])(:)(\\d)", input, (letter, colon, num) -> colon+letter+num)
+                .collect(Collectors.toList());
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void badMapTest() throws Exception {
+        expectedEx.expect(IndexOutOfBoundsException.class);
+        expectedEx.expectMessage("No group 4");
+        Rojo.map("([a-z])(:)(\\d)", input, (letter, colon, num, unused) -> "").findFirst();
+    }
+
+
 }

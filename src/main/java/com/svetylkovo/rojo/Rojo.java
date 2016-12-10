@@ -515,4 +515,211 @@ public class Rojo {
         return matcher(regex, flags).firstGroup(str);
     }
 
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 2 arguments
+     */
+    public static Stream<String> map(String regex, String str, GroupMapArgs2 func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 3 arguments
+     */
+    public static Stream<String> map(String regex, String str, GroupMapArgs3 func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 4 arguments
+     */
+    public static Stream<String> map(String regex, String str, GroupMapArgs4 func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 5 arguments
+     */
+    public static Stream<String> map(String regex, String str, GroupMapArgs5 func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 6 arguments
+     */
+    public static Stream<String> map(String regex, String str, GroupMapArgs6 func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 7 arguments
+     */
+    public static Stream<String> map(String regex, String str, GroupMapArgs7 func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 8 arguments
+     */
+    public static Stream<String> map(String regex, String str, GroupMapArgs8 func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 9 arguments
+     */
+    public static Stream<String> map(String regex, String str, GroupMapArgs9 func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 10 arguments
+     */
+    public static Stream<String> map(String regex, String str, GroupMapArgs10 func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 2 arguments
+     */
+    public static Stream<String> map(String regex, String str, int flags, GroupMapArgs2 func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 3 arguments
+     */
+    public static Stream<String> map(String regex, String str, int flags, GroupMapArgs3 func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 4 arguments
+     */
+    public static Stream<String> map(String regex, String str, int flags, GroupMapArgs4 func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 5 arguments
+     */
+    public static Stream<String> map(String regex, String str, int flags, GroupMapArgs5 func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 6 arguments
+     */
+    public static Stream<String> map(String regex, String str, int flags, GroupMapArgs6 func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 7 arguments
+     */
+    public static Stream<String> map(String regex, String str, int flags, GroupMapArgs7 func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 8 arguments
+     */
+    public static Stream<String> map(String regex, String str, int flags, GroupMapArgs8 func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 9 arguments
+     */
+    public static Stream<String> map(String regex, String str, int flags, GroupMapArgs9 func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 10 arguments
+     */
+    public static Stream<String> map(String regex, String str, int flags, GroupMapArgs10 func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
 }
