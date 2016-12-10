@@ -388,7 +388,7 @@ Jane (5 bananas on 5/7/2016)
 The same as forEach() except it returns a Stream\<String\>.
 
 ### firstGroup()
-Sometimes you just want to extract the first group only. The firstGroup() method returns a Stream of Strings, where each element is the extracted first group of the regex:
+Sometimes you just want to extract the first group only. The **firstGroup()** method returns a Stream\<String\>, where each element is the extracted first group in the regex:
 ```java
 String input = "{apple},{banana},{pear}";
 
