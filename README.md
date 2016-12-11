@@ -15,7 +15,7 @@ Rojo is a Java library for mapping the regular expression into a POJO objects an
 <dependency>
     <groupId>com.svetylkovo</groupId>
     <artifactId>rojo</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 ## How to use Rojo
@@ -351,7 +351,7 @@ or the same thing using **asStream()**:
 Rojo.asStream("[A-Z]\\w+", input).forEach(System.out::println);
 ```
 
-In some cases you may want to match for a pair of groups and see the result as a Map<String,String>. You can do that by calling **asMap()**. Let's find pairs which will contain the picker's name and the count of the fruits that he/she has collected:
+In some cases you may want to match for a pair of groups and see the result as a Map\<String,String\>. You can do that by calling **asMap()**. Let's find pairs which will contain the picker's name and the count of the fruits that he/she has collected:
 ```java
 Map<String, String> pickersMap = Rojo.asMap("([A-Z]\\w+).+?(\\d)", input);
 System.out.println(pickersMap);
@@ -388,6 +388,24 @@ Peter (2 pears on 13/6/2016)
 Jane (5 bananas on 5/7/2016)        
 ```
 
+### map()
+The same as forEach() except it returns a Stream\<String\>.
+
+### firstGroup()
+Sometimes you just want to extract the first group only. The **firstGroup()** method returns a Stream\<String\>, where each element is the extracted first group in the regex:
+```java
+String input = "{apple},{banana},{pear}";
+
+Rojo.firstGroup("\\{(.+?)\\}", input)
+        .forEach(System.out::println);
+```
+
+Console output:
+```
+apple
+banana
+pear
+```
 ## Performance tuning
 Since **Rojo.of()** and all other **plain-matching** methods always create a new Pattern instance inside, it might be expensive if you want to do the matching with the same regex on a large amount of different input Strings. For this purpose you may want to store the matcher and re-use it. For POJO matching, you can just store the **RojoBeanMatcher** instance returned by **Rojo.of()**, so this code:
 ```java

@@ -6,7 +6,7 @@
 
     <groupId>com.svetylkovo</groupId>
     <artifactId>rojo</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <name>Rojo</name>
     <description>Rojo is a Java library for mapping the regular expression into a POJO objects and more.</description>

@@ -114,4 +114,44 @@ public class RojoMatcher {
     public void forEach(String str, GroupArgs10 func) {
         asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9), m.group(10)));
     }
+
+    public Stream<String> firstGroup(String str) {
+        return asMatcherStream(str).map( m -> m.group(1) );
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs2<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2)));
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs3<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3)));
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs4<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4)));
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs5<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5)));
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs6<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)));
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs7<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)));
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs8<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8)));
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs9<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9)));
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs10<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9), m.group(10)));
+    }
 }

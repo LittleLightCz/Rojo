@@ -491,4 +491,271 @@ public class Rojo {
     public static void forEach(String regex, String str, int flags, GroupArgs10 func) {
         matcher(regex, flags).forEach(str, func);
     }
+
+    /**
+     * Match and extract the first group as a Stream
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @return The first group as a {@link Stream}
+     */
+    public static Stream<String> firstGroup(String regex, String str) {
+        return firstGroup(regex, str, DEFAULT_FLAGS);
+    }
+
+    /**
+     * Match and extract the first group as a Stream
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @return The first group as a {@link Stream}
+     */
+    public static Stream<String> firstGroup(String regex, String str, int flags) {
+        return matcher(regex, flags).firstGroup(str);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 2 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs2<T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 3 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs3<T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 4 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs4<T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 5 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs5<T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 6 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs6<T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 7 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs7<T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 8 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs8<T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 9 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs9<T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 10 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs10<T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 2 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs2<T> func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 3 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs3<T> func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 4 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs4<T> func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 5 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs5<T> func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 6 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs6<T> func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 7 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs7<T> func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 8 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs8<T> func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 9 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs9<T> func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 10 arguments
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs10<T> func) {
+        return matcher(regex, flags).map(str, func);
+    }
+
 }
