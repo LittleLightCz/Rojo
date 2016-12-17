@@ -123,43 +123,83 @@ public class RojoMatcher {
         return map(str, firstGroup -> firstGroup);
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs1<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs1<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1)));
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs2<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs2<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2)));
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs3<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs3<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3)));
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs4<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs4<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4)));
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs5<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs5<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5)));
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs6<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs6<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)));
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs7<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs7<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)));
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs8<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs8<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8)));
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs9<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs9<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9)));
     }
 
-    public <T> Stream<T> map(String str, GroupMapArgs10<T> func) {
+    public <T> Stream<T> map(String str, GroupMapArgs10<String, T> func) {
         return asMatcherStream(str).map(m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9), m.group(10)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs1<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs2<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1), m.group(2)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs3<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1), m.group(2), m.group(3)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs4<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs5<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs6<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs7<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs8<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs9<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9)));
+    }
+
+    public String replaceGroup(String str, GroupMapArgs10<String, String> func) {
+        return replaceMatcher(str, m -> func.apply(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7), m.group(8), m.group(9), m.group(10)));
     }
 }

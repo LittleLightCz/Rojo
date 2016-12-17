@@ -290,6 +290,17 @@ public class Rojo {
      *
      * @param regex Regexp pattern
      * @param str Input string
+     * @param func lambda function with 1 argument
+     */
+    public static void forEach(String regex, String str, GroupArgs1 func) {
+        forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
      * @param func lambda function with 2 arguments
      */
     public static void forEach(String regex, String str, GroupArgs2 func) {
@@ -382,6 +393,18 @@ public class Rojo {
      */
     public static void forEach(String regex, String str, GroupArgs10 func) {
         forEach(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and call a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 1 argument
+     */
+    public static void forEach(String regex, String str, int flags, GroupArgs1 func) {
+        matcher(regex, flags).forEach(str, func);
     }
 
     /**
@@ -520,11 +543,24 @@ public class Rojo {
      *
      * @param regex Regexp pattern
      * @param str Input string
+     * @param func lambda function with 1 argument
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs1<String, T> func) {
+        return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
      * @param func lambda function with 2 arguments
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, GroupMapArgs2<T> func) {
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs2<String, T> func) {
         return map(regex, str, DEFAULT_FLAGS, func);
     }
 
@@ -537,7 +573,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, GroupMapArgs3<T> func) {
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs3<String, T> func) {
         return map(regex, str, DEFAULT_FLAGS, func);
     }
 
@@ -550,7 +586,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, GroupMapArgs4<T> func) {
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs4<String, T> func) {
         return map(regex, str, DEFAULT_FLAGS, func);
     }
 
@@ -563,7 +599,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, GroupMapArgs5<T> func) {
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs5<String, T> func) {
         return map(regex, str, DEFAULT_FLAGS, func);
     }
 
@@ -576,7 +612,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, GroupMapArgs6<T> func) {
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs6<String, T> func) {
         return map(regex, str, DEFAULT_FLAGS, func);
     }
 
@@ -589,7 +625,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, GroupMapArgs7<T> func) {
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs7<String, T> func) {
         return map(regex, str, DEFAULT_FLAGS, func);
     }
 
@@ -602,7 +638,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, GroupMapArgs8<T> func) {
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs8<String, T> func) {
         return map(regex, str, DEFAULT_FLAGS, func);
     }
 
@@ -615,7 +651,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, GroupMapArgs9<T> func) {
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs9<String, T> func) {
         return map(regex, str, DEFAULT_FLAGS, func);
     }
 
@@ -628,8 +664,22 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, GroupMapArgs10<T> func) {
+    public static <T> Stream<T> map(String regex, String str, GroupMapArgs10<String, T> func) {
         return map(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Iterate over results and map them using a lambda function, where all groups are extracted as lambda's arguments
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 1 argument
+     * @param <T> result type of map function
+     * @return Stream of map results
+     */
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs1<String, T> func) {
+        return matcher(regex, flags).map(str, func);
     }
 
     /**
@@ -642,7 +692,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs2<T> func) {
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs2<String, T> func) {
         return matcher(regex, flags).map(str, func);
     }
 
@@ -656,7 +706,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs3<T> func) {
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs3<String, T> func) {
         return matcher(regex, flags).map(str, func);
     }
 
@@ -670,7 +720,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs4<T> func) {
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs4<String, T> func) {
         return matcher(regex, flags).map(str, func);
     }
 
@@ -684,7 +734,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs5<T> func) {
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs5<String, T> func) {
         return matcher(regex, flags).map(str, func);
     }
 
@@ -698,7 +748,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs6<T> func) {
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs6<String, T> func) {
         return matcher(regex, flags).map(str, func);
     }
 
@@ -712,7 +762,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs7<T> func) {
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs7<String, T> func) {
         return matcher(regex, flags).map(str, func);
     }
 
@@ -726,7 +776,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs8<T> func) {
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs8<String, T> func) {
         return matcher(regex, flags).map(str, func);
     }
 
@@ -740,7 +790,7 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs9<T> func) {
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs9<String, T> func) {
         return matcher(regex, flags).map(str, func);
     }
 
@@ -754,8 +804,259 @@ public class Rojo {
      * @param <T> result type of map function
      * @return Stream of map results
      */
-    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs10<T> func) {
+    public static <T> Stream<T> map(String regex, String str, int flags, GroupMapArgs10<String, T> func) {
         return matcher(regex, flags).map(str, func);
     }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 1 argument
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs1<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 2 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs2<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 3 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs3<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 4 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs4<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 5 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs5<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 6 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs6<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 7 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs7<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 8 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs8<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 9 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs9<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param func lambda function with 10 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, GroupMapArgs10<String, String> func) {
+        return replaceGroup(regex, str, DEFAULT_FLAGS, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 1 argument
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs1<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 2 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs2<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 3 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs3<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 4 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs4<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 5 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs5<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 6 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs6<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 7 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs7<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 8 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs8<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 9 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs9<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
+    /**
+     * Replace matches in a String where groups are extracted as a lambda function parameters
+     *
+     * @param regex Regexp pattern
+     * @param str Input string
+     * @param flags Regexp flags from the class {@link Pattern}
+     * @param func lambda function with 10 arguments
+     * @return Replaced String
+     */
+    public static String replaceGroup(String regex, String str, int flags, GroupMapArgs10<String, String> func) {
+        return matcher(regex, flags).replaceGroup(str, func);
+    }
+
 
 }

@@ -2,6 +2,7 @@
 
 ## Version 1.0.3
 - extended forEach() and map() by one-parameter lambda callback
+- added replaceGroup()
 
 ## Version 1.0.2
 - added firstGroup()
