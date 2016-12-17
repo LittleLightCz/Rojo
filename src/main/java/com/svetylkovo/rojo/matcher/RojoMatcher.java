@@ -79,6 +79,10 @@ public class RojoMatcher {
         return replaceMatcher(str, m -> func.apply(m.group()));
     }
 
+    public void forEach(String str, GroupArgs1 func) {
+        asMatcherStream(str).forEach(m -> func.apply(m.group(1)));
+    }
+
     public void forEach(String str, GroupArgs2 func) {
         asMatcherStream(str).forEach(m -> func.apply(m.group(1), m.group(2)));
     }
@@ -116,7 +120,11 @@ public class RojoMatcher {
     }
 
     public Stream<String> firstGroup(String str) {
-        return asMatcherStream(str).map( m -> m.group(1) );
+        return map(str, firstGroup -> firstGroup);
+    }
+
+    public <T> Stream<T> map(String str, GroupMapArgs1<T> func) {
+        return asMatcherStream(str).map(m -> func.apply(m.group(1)));
     }
 
     public <T> Stream<T> map(String str, GroupMapArgs2<T> func) {

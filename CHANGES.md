@@ -1,5 +1,8 @@
 # Changes
 
+## Version 1.0.3
+- extended forEach() and map() by one-parameter lambda callback
+
 ## Version 1.0.2
 - added firstGroup()
 - added map()
