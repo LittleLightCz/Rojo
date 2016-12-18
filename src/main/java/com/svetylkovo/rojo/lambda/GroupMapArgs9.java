@@ -1,6 +1,6 @@
 package com.svetylkovo.rojo.lambda;
 
 @FunctionalInterface
-public interface GroupMapArgs9<T> {
-    public T apply(String g1, String g2, String g3, String g4, String g5, String g6, String g7, String g8, String g9);
+public interface GroupMapArgs9<T,U> {
+    public U apply(T g1, T g2, T g3, T g4, T g5, T g6, T g7, T g8, T g9);
 }

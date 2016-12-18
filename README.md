@@ -15,7 +15,7 @@ Rojo is a Java library for mapping the regular expression into a POJO objects an
 <dependency>
     <groupId>com.svetylkovo</groupId>
     <artifactId>rojo</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 ## How to use Rojo
@@ -125,7 +125,7 @@ Console output:
 Total fruits collected: 14
 ```
 
-### Nested matching
+#### Nested matching
 Imagine a situation where you want to match groups to POJO's fields, where one of those fields is an another POJO class with its own regex, which will match the content of the previously parsed group. Let's define such scenario, where we will match person's name and store his/her height and weight into the Body class, which will have a method to compute a person's BMI index:
 
 ```java
@@ -206,7 +206,7 @@ Jane's BMI index is: 16.937031879257784
 Mark's BMI index is: 19.591836734693878
 ```
 
-### List matching
+#### List matching
 Rojo can match multiple regex matches for a specific group as a List. If the List's generic type is not a class annotated by @Regex, you have to annotate the specific List field. Let's match people's favorite numbers:
 ```java
 @Regex("(\\w+): (.+)")
@@ -258,7 +258,7 @@ Jane's favorite numbers are: 4 and 5 and 6
 Mark's favorite numbers are: 7 and 8 and 9
 ```
 
-### Custom mapper
+#### Custom mapper
 If you want to map a group to a type which is not supported by default, you can specify your own mapper using the @Mapper annotation, which takes a class which implements java.util.function.Function mapping a String to your specified type:
 
 ```java
@@ -317,6 +317,7 @@ Is Mark's age even? => true
 ```
 
 ### Plain matching
+#### find()
 You don't always need to match a POJO bean, but Rojo also enables you to do the "plain matching" in much more convenient way, than if you've used the Java's Pattern.compile() manually. Let's print just the first picker's name: 
 ```java
 String input = "John picked 7 apples on 2/6/2016.\n" +
@@ -333,6 +334,7 @@ Console output:
 The first picker is John
 ```
 
+#### asList()
 To print out all names you can use **asList()**:
 ```java
 List<String> allNames = Rojo.asList("[A-Z]\\w+", input);
@@ -346,11 +348,14 @@ John
 Peter
 Jane
 ```
+
+#### asStream()
 or the same thing using **asStream()**:
 ```java
 Rojo.asStream("[A-Z]\\w+", input).forEach(System.out::println);
 ```
 
+#### asMap()
 In some cases you may want to match for a pair of groups and see the result as a Map\<String,String\>. You can do that by calling **asMap()**. Let's find pairs which will contain the picker's name and the count of the fruits that he/she has collected:
 ```java
 Map<String, String> pickersMap = Rojo.asMap("([A-Z]\\w+).+?(\\d)", input);
@@ -361,6 +366,7 @@ Console output:
 {John=7, Peter=2, Jane=5}
 ```
 
+#### replace()
 What if we wanted to change all collected fruit names to upper-case? There's a useful **replace()** method for that:
 ```java
 String replaced = Rojo.replace("\\d \\w+", input, String::toUpperCase);
@@ -374,7 +380,21 @@ Jane collected 5 BANANAS on 5/7/2016.
 ```
 ... for more advanced replacement you can use **replaceMatcher()**.
 
-### forEach()
+#### replaceGroup()
+If you want to do the replacement dealing with the groups directly, it's handy to have them extracted as a lambda function parameters:
+
+```java
+String replaced = Rojo.replaceGroup("(\\d) (\\w+)", input, (count, fruit) -> "and ate "+count+" "+fruit.toUpperCase() );
+System.out.println(replaced);
+```
+Console output:
+```
+John picked and ate 7 APPLES on 2/6/2016.
+Peter picked only and ate 2 PEARS on 13/6/2016.
+Jane collected and ate 5 BANANAS on 5/7/2016.
+```
+
+#### forEach()
 This method allows you to iterate over the regex matches, where it extracts all groups (2 and more, up to 10) into the lambda function arguments:
 ```java
 Rojo.forEach("([A-Z]\\w+).+(\\d) (\\w+) on (\\d+/\\d+/\\d+)", input,
@@ -388,10 +408,10 @@ Peter (2 pears on 13/6/2016)
 Jane (5 bananas on 5/7/2016)        
 ```
 
-### map()
+#### map()
 The same as forEach() except it returns a Stream\<String\>.
 
-### firstGroup()
+#### firstGroup()
 Sometimes you just want to extract the first group only. The **firstGroup()** method returns a Stream\<String\>, where each element is the extracted first group in the regex:
 ```java
 String input = "{apple},{banana},{pear}";
