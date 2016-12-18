@@ -259,7 +259,7 @@ Mark's favorite numbers are: 7 and 8 and 9
 ```
 
 #### Custom mapper
-If you want to map a group to a type which is not supported by default, you can specify your own mapper using the @Mapper annotation, which takes a class which implements java.util.function.Function mapping a String to your specified type:
+If you want to map a group to a type which is not supported by default, you can specify your own mapper using the **@Mapper** annotation, which takes a class which implements **Function\<String, ?\>** that maps a String to your specified type:
 
 ```java
 @Regex("(\\w+): (.+)")
