@@ -448,11 +448,11 @@ RojoMatcher matcher = Rojo.matcher("[a-z]");
 List<String> list = matcher.asList(input);
 ```
 ## Annotations overview
-Class annotations:
+#### Class annotations
 - @Regex - here's where you specify your regex pattern as String
 - @Flags - if you want to use flags such as Pattern.DOTALL etc.
 
-Field annotations:
+#### Field annotations
 - @Regex - only for List type of fields which don't use the "nested class matching" (=class annotated by @Regex itself) as a generic type
 - @Group - group number that corresponds to the field
 - @DateFormat - this annotation is mandatory only for the Date type fields, where you have to specify the date format
